@@ -1,0 +1,260 @@
+.home-page {
+    min-height: 100vh;
+    background: #faf7f1;
+    color: #202020;
+}
+
+.app-header {
+    height: 90px;
+    padding: 0 44px;
+    border-bottom: 1.5px solid #202020;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.app-brand {
+    width: fit-content;
+    border: 0;
+    background: none;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #202020;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.app-nav {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.app-nav__item {
+    height: 100%;
+    border: 0;
+    background: none;
+    color: #202020;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.app-nav__item--active {
+    border-bottom: 3px solid #ff6338;
+}
+
+.profile-dot {
+    justify-self: end;
+    width: 38px;
+    height: 38px;
+    border: 1.5px solid #202020;
+    border-radius: 50%;
+    background: #d8ef78;
+    cursor: pointer;
+}
+
+.home-content {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 44px 44px 70px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(48px, 5vw, 68px);
+    line-height: 0.98;
+    letter-spacing: -2px;
+}
+
+.page-header h1 em {
+    color: #ff6338;
+}
+
+.page-header p {
+    margin: 18px 0 34px;
+    color: #667183;
+    font-size: 15px;
+}
+
+.interview-card {
+    border: 1.5px solid #202020;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 9px 9px 0 #202020;
+}
+
+.interview-card__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 300px;
+}
+
+.panel {
+    padding: 22px 24px;
+}
+
+.panel--left {
+    border-right: 1.5px solid #202020;
+}
+
+.panel--right {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 18px;
+}
+
+.panel__header,
+.section-label {
+    height: 32px;
+    display: flex;
+    align-items: flex-start;
+    color: #202020;
+}
+
+.panel__header h2,
+.section-label {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.section-label span {
+    margin-left: 4px;
+    color: #667183;
+    font-weight: 500;
+}
+
+.panel__textarea {
+    width: 100%;
+    height: 220px;
+    border: 1.5px solid #202020;
+    border-radius: 14px;
+    background: #fff;
+    color: #202020;
+    resize: none;
+    padding: 16px;
+    outline: none;
+    font: 14px "DM Sans", sans-serif;
+}
+
+.panel__textarea--short {
+    height: 112px;
+}
+
+.panel__textarea:focus {
+    box-shadow: 0 0 0 3px rgba(255, 99, 56, 0.12);
+}
+
+.dropzone {
+    height: 90px;
+    border: 1.5px dashed #202020;
+    border-radius: 14px;
+    background: #eef6ba;
+    display: grid;
+    place-items: center;
+    color: #202020;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.generate-btn {
+    min-width: 210px;
+    height: 50px;
+    margin-top: 28px;
+    border: 1.5px solid #202020;
+    border-radius: 999px;
+    background: #ff6338;
+    box-shadow: 7px 7px 0 #202020;
+    color: #202020;
+    font: 700 15px "DM Sans", sans-serif;
+    cursor: pointer;
+}
+
+.generate-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 5px 5px 0 #202020;
+}
+
+.recent-plans {
+    margin-top: 58px;
+}
+
+.recent-plans h2 {
+    margin-bottom: 18px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+}
+
+.reports-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.report-card {
+    min-height: 112px;
+    border: 1.5px solid #202020;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 7px 7px 0 #202020;
+    padding: 20px;
+    text-align: left;
+    color: #202020;
+    cursor: pointer;
+}
+
+.report-card h3 {
+    margin: 0 0 14px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+}
+
+.report-card p {
+    margin: 0;
+    color: #667183;
+    font-size: 12px;
+}
+
+.loading-screen {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #faf7f1;
+    color: #202020;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+@media (max-width: 760px) {
+    .app-header {
+        height: 72px;
+        padding: 0 20px;
+        grid-template-columns: 1fr auto;
+    }
+
+    .app-nav {
+        display: none;
+    }
+
+    .home-content {
+        padding: 34px 20px 60px;
+    }
+
+    .interview-card__body {
+        grid-template-columns: 1fr;
+    }
+
+    .panel--left {
+        border-right: 0;
+        border-bottom: 1.5px solid #202020;
+    }
+
+    .reports-grid {
+        grid-template-columns: 1fr;
+    }
+}
