@@ -8,14 +8,30 @@ const Home = () => {
     const { loading, generateReport, reports } = useInterview()
     const [ jobDescription, setJobDescription ] = useState("")
     const [ selfDescription, setSelfDescription ] = useState("")
+    const [ selectedResume, setSelectedResume ] = useState("")
+    const [ uploadError, setUploadError ] = useState("")
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
 
     const handleGenerateReport = async () => {
-        const resumeFile = resumeInputRef.current.files[ 0 ]
-        const data = await generateReport({ jobDescription, selfDescription, resumeFile })
-        navigate(`/interview/${data._id}`)
+        const resumeFile = resumeInputRef.current?.files?.[ 0 ]
+        if (!resumeFile) {
+            setUploadError("Select a PDF resume before generating your plan.")
+            return
+        }
+        if (resumeFile.size > 3 * 1024 * 1024) {
+            setUploadError("Resume must be 3 MB or smaller.")
+            return
+        }
+
+        setUploadError("")
+        try {
+            const data = await generateReport({ jobDescription, selfDescription, resumeFile })
+            navigate(`/interview/${data._id}`)
+        } catch (error) {
+            setUploadError(error.response?.data?.message || error.message || "Resume upload failed. Please try again.")
+        }
     }
 
     if (loading) {
@@ -64,9 +80,22 @@ const Home = () => {
                             <div className="upload-section">
                                 <label className="section-label" htmlFor="resume">Resume <span>(PDF, up to 3 MB)</span></label>
                                 <label className="dropzone" htmlFor="resume">
-                                    <input ref={resumeInputRef} hidden type="file" id="resume" name="resume" accept=".pdf,.docx" />
-                                    <span>Drop your resume or browse</span>
+                                    <input
+                                        ref={resumeInputRef}
+                                        hidden
+                                        type="file"
+                                        id="resume"
+                                        name="resume"
+                                        accept=".pdf,application/pdf"
+                                        onChange={(event) => {
+                                            setSelectedResume(event.target.files?.[ 0 ]?.name || "")
+                                            setUploadError("")
+                                        }}
+                                    />
+                                    <span>{selectedResume || "Choose a PDF resume"}</span>
                                 </label>
+                                {uploadError && <p className="upload-error" role="alert">{uploadError}</p>}
+                                <p className="upload-hint">Your resume uploads when you generate your plan.</p>
                             </div>
 
                             <div className="self-description">

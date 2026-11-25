@@ -95,6 +95,24 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
                         The resume should not be so lengthy, it should ideally be 1-2 pages long when converted to PDF. Focus on quality rather than quantity and make sure to include all the relevant information that can increase the candidate's chances of getting an interview call for the given job description.
                     `
 
+    // const response = await ai.models.generateContent({
+    //     model: "gemini-3-flash-preview",
+    //     contents: prompt,
+    //     config: {
+    //         responseMimeType: "application/json",
+    //         responseSchema: zodToJsonSchema(resumePdfSchema),
+    //     }
+    // })
+
+
+    // const jsonContent = JSON.parse(response.text)
+
+    // const pdfBuffer = await generatePdfFromHtml(jsonContent.html)
+
+    // return pdfBuffer
+    try {
+    console.log("Generating resume content using Gemini...");
+
     const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: prompt,
@@ -102,14 +120,39 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
             responseMimeType: "application/json",
             responseSchema: zodToJsonSchema(resumePdfSchema),
         }
-    })
+    });
 
+    console.log("Gemini response received");
 
-    const jsonContent = JSON.parse(response.text)
+    const responseText = response.text;
 
-    const pdfBuffer = await generatePdfFromHtml(jsonContent.html)
+    if (!responseText) {
+        throw new Error("Gemini returned an empty response");
+    }
 
-    return pdfBuffer
+    console.log("Parsing Gemini JSON response...");
+
+    const jsonContent = JSON.parse(responseText);
+
+    if (!jsonContent.html) {
+        throw new Error("HTML content is missing from Gemini response");
+    }
+
+    console.log("Generating PDF from HTML...");
+
+    const pdfBuffer = await generatePdfFromHtml(jsonContent.html);
+
+    console.log("PDF generated successfully");
+
+    return pdfBuffer;
+
+} catch (error) {
+    console.error("Resume PDF Generation Error:", error);
+    console.error("Error message:", error.message);
+    console.error("Error stack:", error.stack);
+
+    throw error;
+}
 
 }
 
